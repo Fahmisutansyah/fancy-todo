@@ -1,11 +1,12 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const mongoose = require('mongoose')
 const cors = require("cors")
 const {Authentication} = require("./middlewares/authentication")
-mongoose.connect("mongodb://localhost/fancy-todo", {useNewUrlParser: true, useCreateIndex: true})
+const database = process.env.ATLAS_PASS ? `mongodb+srv://admin:${process.env.ATLAS_PASS}@cluster0-ayir7.gcp.mongodb.net/todo?retryWrites=true` : 'mongodb://localhost/fancy-todo'
+mongoose.connect(database, {useNewUrlParser: true, useCreateIndex: true})
 // mongoose.set('useCreateIndex', true)
 let db = mongoose.connection
 db.on('error', console.error.bind(console, 'CONNECTION ERROR!'))
@@ -24,5 +25,5 @@ app.use('/todo', require('./routes/todoRoute'))
 
 
 app.listen(port, ()=>{
-console.log(`server is running at port 3000`)
+console.log(`server is running at port `+ port)
 })
