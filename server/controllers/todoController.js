@@ -7,7 +7,6 @@ class TodoController {
         const decoded = jwt.verify(req.headers.token, process.env.JWT_KEY)
         let ownerId = ''
         if (decoded) ownerId = decoded.id
-        console.log(req.body.due_date)
         let momentDate = moment(`${req.body.due_date}`).format("LL")
         let newTodo = new Todo({
             owner: ownerId,
@@ -22,7 +21,6 @@ class TodoController {
             res.status(201).json(created)
         })
         .catch(err=>{
-            console.log(err)
             if (err.errors.due_date) res.status(400).json({
                 msg: err.message
             })
@@ -46,7 +44,6 @@ class TodoController {
                 res.status(200).json(todos)
             })
             .catch(err => {
-                console.log(err.message)
                 res.status(500).json({
                     msg: err.message
                 })
@@ -63,7 +60,6 @@ class TodoController {
                 res.status(200).json(updated)
             })
             .catch(err => {
-                console.log(err.message)
                 res.status(500).json({
                     msg: err.message
                 })
@@ -76,7 +72,6 @@ class TodoController {
             res.status(200).json(deleted)
         })
         .catch(err=>{
-            console.log(err.message)
             res.status(500).json({
                 msg: err.message
             })

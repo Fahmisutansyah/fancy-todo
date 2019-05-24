@@ -111,4 +111,8 @@ $(document).ready(function () {
     $('.fixed-action-btn').floatingActionButton();
     $('input#input_text, textarea#description').characterCounter();
     $('.datepicker').datepicker();
+    if(localStorage.token){
+        $("#login-page").hide()
+        $("#home").show()
+    }
 });

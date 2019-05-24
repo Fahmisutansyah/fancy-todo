@@ -24,7 +24,6 @@ todoSchema.pre('save',function(next){
 
 let Todo = mongoose.model('Todo', todoSchema)
 Todo.schema.path("due_date").validate(function(value){
-    console.log("validating duedate")
     let dateInput = moment(value)
     let now = moment()
     let diff = dateInput.diff(now, "days")

@@ -26,7 +26,6 @@ class UserController {
             })
             .catch(err => {
                 console.log(err.message);
-                if (err.errors.email)console.log('anjay')
                 res.status(500).json({
                     msg: err.message
                 })

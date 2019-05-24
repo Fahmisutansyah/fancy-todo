@@ -89,10 +89,7 @@ function fetchTodo() {
     let lon = ''
     navigator.geolocation.getCurrentPosition(function (location) {
         lat = location.coords.latitude
-        console.log(lat)
         lon = location.coords.longitude
-        console.log(lon)
-        console.log(location.coords.accuracy)
         $.ajax({
             url: `http://localhost:3000/weather/${lat}/${lon}`,
             method: "GET"
@@ -267,9 +264,7 @@ function updateTodo(todoId){
 }
 function createTodo() {
     event.preventDefault()
-    console.log('masuk create todo')
     $("#todo-form").hide()
-    console.log($("#description").val())
     $.ajax({
         url: `http://localhost:3000/todo`,
         method: "POST",
@@ -283,16 +278,12 @@ function createTodo() {
         }
     })
         .done(response => {
-            console.log(response)
             let day = response.created_at.split("T")[0]
             let time = response.created_at.split("T")[1].split('.')[0]
             let format = `${day} ${time}`
             let date = moment(format, "YYYY-MM-DD hh:mm").format("LLLL")
             let due_date = moment(`${response.due_date}`, "MMMM d, YYYY")
-            console.log("INI DUE DATE ABIS BIKIN")
-            console.log(due_date)
             let description = "No Description"
-            console.log(response.description)
             if (response.description) {
                 description = response.description
             }
@@ -343,6 +334,7 @@ function createTodo() {
                     </div>
                 </div>
                 `)
+                $('.modal').modal();
                 $("#title").val("")
                 $("#description").val('')
                 $("#due_date").val("")
